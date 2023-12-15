@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="QuizTime.Widgets.NewAnswer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QuizTime.Widgets"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Rectangle Name="recBorder" HorizontalAlignment="Left" Height="77" Stroke="Black" VerticalAlignment="Top" Width="301" />
+        <CheckBox Name="cbxCorrect" Content="CheckBox" HorizontalAlignment="Left" Height="22" Margin="60,16,0,0" VerticalAlignment="Top" Width="17"/>
+        <Label Name="lblCorrect" Content="Correct" HorizontalAlignment="Left" Height="28" Margin="10,10,0,0" VerticalAlignment="Top" Width="50"/>
+        <TextBox Name="txtAnswer" HorizontalAlignment="Left" Height="38" Margin="86,5,0,0" TextWrapping="Wrap" Text="Answer here" VerticalAlignment="Top" Width="210" TextInput="txtAnswer_TextInput"/>
+        <Button Name="btnUploadImage" Content="Upload Image" HorizontalAlignment="Left" Height="20" Margin="86,50,0,0" VerticalAlignment="Top" Width="91" Click="btnUploadImage_Click"/>
+        <Label Name="lblimageName" Content="..." HorizontalAlignment="Left" Height="20" Margin="177,50,0,0" VerticalAlignment="Top" Width="109" FontSize="8"/>
+        <Button Name="btnDeleteAnswer" Margin="10,50,768,380" Click="btnDeleteAnswer_Click">
+            <StackPanel>
+                <Image Source="../Resources/trash_nobg.png" Height="16" Width="21" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

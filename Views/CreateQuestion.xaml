@@ -1,0 +1,32 @@
+﻿<Window x:Class="QuizTime.Views.CreateQuestion"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuizTime.Views" 
+        xmlns:widget="clr-namespace:QuizTime.Widgets"
+        mc:Ignorable="d"
+        Title="New Question" Height="329" Width="661">
+    <Grid>
+        <TextBox Name="lblQuestionName" HorizontalAlignment="Left" Height="45" Margin="115,14,0,0" TextWrapping="Wrap" Text="Text" VerticalAlignment="Top" Width="493"/>
+        <Label Content="Question Text: " HorizontalAlignment="Left" Height="29" Margin="24,14,0,0" VerticalAlignment="Top" Width="91"/>
+        <GroupBox Name="grpbxAnswers" HorizontalAlignment="Center" Height="182" Header="Answers" Margin="0,95,0,0" VerticalAlignment="Top" Width="632">
+                <Grid Name="grdAnswers" HorizontalAlignment="Left" Height="155" VerticalAlignment="Top" Width="622">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <widget:NewAnswer Grid.Row="0" Margin="0,0,0,77" Grid.RowSpan="2" Width="311"/>
+                    <widget:NewAnswer Grid.Column="1" Margin="0,0,0,77" Grid.RowSpan="2" Width="311"/>
+
+                </Grid>
+        </GroupBox>
+        <Button Name="btnQuestionImage" Content="Upload Image" HorizontalAlignment="Left" Height="20" Margin="18,67,0,0" VerticalAlignment="Top" Width="91" Click="btnQuestionImage_Click"/>
+        <Label Name="lblQuestionImage" Content="..." HorizontalAlignment="Left" Margin="115,64,0,0" VerticalAlignment="Top" Width="209" Height="23"/>
+        <Button Name="btnFinalize" Content="Finalize" HorizontalAlignment="Left" Height="20" Margin="578,283,0,0" VerticalAlignment="Top" Width="68" Click="btnFinalize_Click"/>
+    </Grid>
+</Window>

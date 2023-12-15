@@ -1,0 +1,57 @@
+﻿<Window x:Class="QuizTime.Views.CreateQuiz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create Quiz" Height="483" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Quiz Name row -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Image and Change Image Button row -->
+            <RowDefinition Height="*"></RowDefinition>
+            <!-- ListView row -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Add Question Button row -->
+            <RowDefinition Height="Auto"></RowDefinition>
+            <!-- Finalize Button row -->
+        </Grid.RowDefinitions>
+
+        <!-- Quiz Name -->
+        <Label Content="Quiz Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Height="26" Width="72" />
+        <TextBox Name="txtboxQuizName" VerticalAlignment="Top"
+                 Margin="14,30,396,0" FontSize="16" Height="23" Grid.Row="0" />
+
+        <!-- Change Image Button -->
+        <Button Name="btnQuizImage" Content="Change Image" HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="10,10,10,5" Click="btnQuizImage_Click" Height="20" Width="81" Grid.Row="1"/>
+
+        <!-- Image -->
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="132" Width="200" Margin="10,10,10,5" Grid.Row="1">
+            <Image Name="QuizImage" Width="200" />
+            <Label Name="lblQuizImage" HorizontalAlignment="Center" VerticalAlignment="Center" Content="No Image Found :-(" />
+        </Grid>
+
+        <!-- Question ListView -->
+        <ListView Name="listview_Questions" Margin="10" Grid.Row="2">
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridViewColumn Header="Question" DisplayMemberBinding="{Binding QuestionText}" Width="Auto"/>
+                    <GridViewColumn Header="Answers" DisplayMemberBinding="{Binding AnswerCount}" Width="Auto"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding QuestionType}" Width="Auto"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- Add Question Button -->
+        <Button x:Name="btnAddQuestion" Content="Add Question" HorizontalAlignment="Left" Width="120" Click="btnNewQuestion_Click" 
+                Margin="10,5,0,5" Grid.Row="3"/>
+        <Button x:Name="btnRemoveQuestion" Content="Remove Question" HorizontalAlignment="Left" Width="120" Click="btnRemoveQuestion_Click" 
+                Margin="135,5,0,5" Grid.Row="3"/>
+        <Button x:Name="btnEditQuestion" Content="Edit Question" HorizontalAlignment="Left" Width="120" Click="btnEditQuestion_Click" 
+                Margin="260,5,0,5" Grid.Row="3"/>
+
+        <!-- Finalize Button -->
+        <Button Content="Finalize" x:Name="btnFinalize" Width="100" Click="btnFinalize_Click"
+                HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,5,10,5" Grid.Row="4"/>
+    </Grid>
+</Window>
