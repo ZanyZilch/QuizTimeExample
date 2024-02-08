@@ -35,6 +35,7 @@ namespace QuizTime
             btnStartQuiz.IsEnabled = true;
             btnAddQuestion.IsEnabled = true;
             btnEditQuiz.IsEnabled = true;
+            btnDeleteQuiz.IsEnabled = true;
 
             Quiz selectedItem = (Quiz)cmbCombo.SelectedItem;
 
@@ -47,8 +48,7 @@ namespace QuizTime
                 Uri imagePath = new Uri(selectedItem.Image);
                 BitmapImage bitmap = new BitmapImage(imagePath);
                 imgQuiz.Source = bitmap;
-            } 
-
+            }
         }
 
         private void btnAddQuestion_Click(object sender, RoutedEventArgs e)
@@ -75,6 +75,8 @@ namespace QuizTime
             Quiz selectedItem = (Quiz)cmbCombo.SelectedItem;
             StartQuiz startQuiz = new StartQuiz(selectedItem);
             startQuiz.Show();
+            QuizController controller = new QuizController(startQuiz);
+            controller.Show();
             this.Close();
         }
 
@@ -86,6 +88,16 @@ namespace QuizTime
             editQuiz.Show();
             this.Close();
 
+        }
+
+        private void btnDeleteQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("Are you sure you want to Delete the Quiz?", "Delete Quiz", MessageBoxButton.YesNoCancel);
+            //MessageBox.Show("Are you sure you want to Delete the Quiz and its underlying questions?", "Delete Quiz", MessageBoxButton.YesNoCancel);
+            Quiz selectedItem = (Quiz)cmbCombo.SelectedItem;
+            DeleteQuiz deleteQuiz = new DeleteQuiz(selectedItem);
+            deleteQuiz.Show();
+            this.Close();
         }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Surface\source\repos\QuizTime\App.xaml
-9-690282829
+111953429549
 
-19-16267222
+21-419916712
 27249252906
-MainWindow.xaml;Pages\QuizQuestionPage.xaml;Pages\ResultPage.xaml;Views\CreateQuestion.xaml;Views\CreateQuiz.xaml;Views\EditQuiz.xaml;Views\StartQuiz.xaml;Widgets\AnAnswer.xaml;Widgets\NewAnswer.xaml;
+MainWindow.xaml;Pages\QuizQuestionPage.xaml;Views\CreateQuestion.xaml;Views\CreateQuiz.xaml;Views\DeleteQuiz.xaml;Views\EditQuiz.xaml;Views\QuizController.xaml;Views\ResultScreen.xaml;Views\StartQuiz.xaml;Widgets\AnAnswer.xaml;Widgets\NewAnswer.xaml;
 
 True
 

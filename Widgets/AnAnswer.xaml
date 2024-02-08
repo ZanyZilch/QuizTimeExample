@@ -6,11 +6,27 @@
              xmlns:local="clr-namespace:QuizTime.Widgets"
              mc:Ignorable="d" Height="78" Width="302">
     <Grid Background="White" Margin="0,0,-3,0">
-
-        <Rectangle Name="recBorder" HorizontalAlignment="Center" Height="76" StrokeThickness="1" Stroke="Black" VerticalAlignment="Center" Width="302" />
-        <RadioButton Name="rdbtnselectedItem" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblquestionText" Content="Label" HorizontalAlignment="Left" Margin="75,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.228,-6.498" Width="221" Height="68" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-
-
+        <Rectangle Name="recBorder" HorizontalAlignment="Center" Height="76" StrokeThickness="1" Stroke="Black" VerticalAlignment="Center" Width="302">
+            <Rectangle.Style>
+                <Style TargetType="Rectangle">
+                    <Setter Property="Fill" Value="White" />
+                    <!-- Default color -->
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsCorrect}" Value="True">
+                            <Setter Property="Fill" Value="Green" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsCorrect}" Value="False">
+                            <Setter Property="Fill" Value="Red" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
+        <!--<RadioButton Name="rdbtnselectedItem" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" GroupName="AnswerGroup"/>-->
+        <Label HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="1.228,-6.498" Width="222" Height="68" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="6,0,0,0">
+            <AccessText x:Name="lblquestionText" TextWrapping="Wrap" Text="[QuestionText]" FontSize="13"/>
+        </Label>
+        <!-- Image goes here -->
+        <Image Name="imgAnswer" Source="{Binding ImageSource}" HorizontalAlignment="Left" Width="71" Margin="228,5,0,5"/>
     </Grid>
 </UserControl>

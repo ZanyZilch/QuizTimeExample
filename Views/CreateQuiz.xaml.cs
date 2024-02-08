@@ -38,6 +38,7 @@ namespace QuizTime.Views
             quiz = new Quiz();
             txtboxQuizName.Text = "New Quiz";
             IsEdit = false;
+
         }
 
         public CreateQuiz(Quiz editQuiz)
@@ -114,196 +115,76 @@ namespace QuizTime.Views
         }
         private void btnFinalize_Click(object sender, RoutedEventArgs e)
         {
-            //10
-            if (quiz.Questions.Count < 0)
+            //Amount of questions
+            if (quiz.Questions != null)
             {
-                MessageBox.Show("A Quiz should have minimal 10 questions.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
-                if(IsEdit == false)
+                if (quiz.Questions.Count < 10)
                 {
-                    SQL bla = new SQL();
-
-                    long idQuiz = new long();
-                    long idQuestion = new long();
-                    long idAnswers = new long();
-
-                    // Create Quiz
-                    string query = "INSERT INTO `quiz` (`idQuiz`, `Quizname`, `Image`) " +
-                                   "VALUES (NULL, @quizName, @quizImage)";
-                    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                    {
-                        cmd.Parameters.AddWithValue("@quizName", txtboxQuizName.Text);
-                        if (QuizImage.Source != null)
-                        {
-                            cmd.Parameters.AddWithValue("@quizImage", QuizImage.Source.ToString());
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@quizImage", null);
-
-                        }
-                        cmd.ExecuteNonQuery();
-                        idQuiz = cmd.LastInsertedId;
-                    }
-                    foreach (Question question in quiz.Questions)
-                    {
-                        //Create Question
-                        query = "INSERT INTO question (idQuestion, questionText, image, idQuiz, type) " +
-                                       "VALUES (NULL, @questionText, @questionImage, @idQuiz, @questionType)";
-
-                        using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                        {
-                            cmd.Parameters.AddWithValue("@questionText", question.questionText);
-                            cmd.Parameters.AddWithValue("@questionImage", question.image);
-                            cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
-                            cmd.Parameters.AddWithValue("@questionType", question.QuestionType);
-
-                            cmd.ExecuteNonQuery();
-                            idQuestion = cmd.LastInsertedId;
-                        }
-
-                        foreach (Answer answer in question.answerList)
-                        {
-                            //Create answer
-                            query = "INSERT INTO answer (idAnswer, answerText, image) " +
-                                    "VALUES (NULL, @answerText, @answerImage)";
-
-                            using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                            {
-                                cmd.Parameters.AddWithValue("@answerText", answer.answerText);
-                                cmd.Parameters.AddWithValue("@answerImage", answer.image);
-
-                                cmd.ExecuteNonQuery();
-                                idAnswers = cmd.LastInsertedId;
-                            }
-
-                            //Create question_answer
-                            query = "INSERT INTO `question_answer` (`idQuestion`, `idAnswer`, `correct`) " +
-                                    "VALUES (@idQuestion, @idAnswer, @Correct);";
-
-                            using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                            {
-                                cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
-                                cmd.Parameters.AddWithValue("@idAnswer", idAnswers);
-                                cmd.Parameters.AddWithValue("@Correct", answer.correct);
-
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                    }
-
-                    MessageBox.Show("Succesfully created Quiz!");
-                    MainWindow main = new MainWindow();
-                    quiz = null;
-                    this.Close();
-                    main.ShowDialog();
+                    MessageBox.Show("A Quiz should have minimal 10 questions.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    SQL bla = new SQL();
-
-                    long idQuiz = quiz.idQuiz;
-                    long idQuestion = new long();
-                    long idAnswers = new long();
-
-                    // Update Quiz
-                    string query = "UPDATE `quiz` SET `Quizname` = @quizName, `Image` = @quizImage WHERE `idQuiz` = @idQuiz";
-                    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                    if (IsEdit == false)
                     {
-                        cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
-                        cmd.Parameters.AddWithValue("@quizName", txtboxQuizName.Text);
-                        if(QuizImage.Source != null)
-                        {
-                            cmd.Parameters.AddWithValue("@quizImage", QuizImage.Source.ToString());
-                        } else
-                        {
-                            cmd.Parameters.AddWithValue("@quizImage", null);
-                        }
-                        cmd.ExecuteNonQuery();
-                    }
+                        SQL bla = new SQL();
 
-                    // Empty related question's idQuiz
-                    query = "UPDATE question SET idQuiz = NULL WHERE idQuiz = @idQuiz";
-                    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                    {
-                        cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
-                        cmd.ExecuteNonQuery();
-                    }
+                        long idQuiz = new long();
+                        long idQuestion = new long();
+                        long idAnswers = new long();
 
-                    foreach (Question question in quiz.Questions)
-                    {
-                        idQuestion = question.idQuestion;
-
-                        //Update Question
-                        if(idQuestion == 0)
-                        {
-                            query = "INSERT INTO question (idQuestion, questionText, image, idQuiz, type) " +
-                                    "VALUES (NULL, @questionText, @questionImage, @idQuiz, @questionType)";
-                        }
-                        else
-                        {
-                            query = "UPDATE question SET questionText = @questionText, image = @questionImage, idQuiz = @idQuiz, type = @questionType WHERE idQuestion = @idQuestion";
-                        }
-
+                        // Create Quiz
+                        string query = "INSERT INTO `quiz` (`idQuiz`, `Quizname`, `Image`) " +
+                                       "VALUES (NULL, @quizName, @quizImage)";
                         using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
                         {
-                            cmd.Parameters.AddWithValue("@questionText", question.questionText);
-                            cmd.Parameters.AddWithValue("@questionImage", question.image);
-                            cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
-                            cmd.Parameters.AddWithValue("@questionType", question.QuestionType);
-                            if(idQuestion != 0)
+                            cmd.Parameters.AddWithValue("@quizName", txtboxQuizName.Text);
+                            if (QuizImage.Source != null)
                             {
-                                cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
+                                cmd.Parameters.AddWithValue("@quizImage", QuizImage.Source.ToString());
                             }
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@quizImage", null);
 
+                            }
                             cmd.ExecuteNonQuery();
-                            if(idQuestion == 0)
-                            {
-                                idQuestion = cmd.LastInsertedId;
-                            }
+                            idQuiz = cmd.LastInsertedId;
                         }
-
-
-                        foreach (Answer answer in question.answerList)
+                        foreach (Question question in quiz.Questions)
                         {
-                            bool update;
-                            string checkQuery = "SELECT idAnswer FROM answer WHERE idAnswer = @answerid";
-                            using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, bla.Connection))
-                            {
-                                checkCmd.Parameters.AddWithValue("@answerid", answer.idAnswer);
-                                object existingAnswerId = checkCmd.ExecuteScalar();
-
-                                if (existingAnswerId != null)
-                                {
-                                    // Answer exists, update it
-                                    query = "UPDATE answer SET answerText = @answerText, image = @answerImage WHERE idAnswer = @answerid";
-                                    update = true;
-                                }
-                                else
-                                {
-                                    // Answer doesn't exist, insert it
-                                    query = "INSERT INTO answer (idAnswer, answerText, image) VALUES (NULL, @answerText, @answerImage)";
-                                    update = false;
-                                }
-                            }
+                            //Create Question
+                            query = "INSERT INTO question (idQuestion, questionText, image, idQuiz, type) " +
+                                           "VALUES (NULL, @questionText, @questionImage, @idQuiz, @questionType)";
 
                             using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
                             {
-                                cmd.Parameters.AddWithValue("@answerid", answer.idAnswer);
-                                cmd.Parameters.AddWithValue("@answerText", answer.answerText);
-                                cmd.Parameters.AddWithValue("@answerImage", answer.image);
+                                cmd.Parameters.AddWithValue("@questionText", question.questionText);
+                                cmd.Parameters.AddWithValue("@questionImage", question.image);
+                                cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
+                                cmd.Parameters.AddWithValue("@questionType", question.QuestionType);
 
                                 cmd.ExecuteNonQuery();
-                                idAnswers = cmd.LastInsertedId;
-                               
+                                idQuestion = cmd.LastInsertedId;
                             }
 
-                            if(update == false)
+                            foreach (Answer answer in question.answerList)
                             {
+                                //Create answer
+                                query = "INSERT INTO answer (idAnswer, answerText, image) " +
+                                        "VALUES (NULL, @answerText, @answerImage)";
+
+                                using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                                {
+                                    cmd.Parameters.AddWithValue("@answerText", answer.answerText);
+                                    cmd.Parameters.AddWithValue("@answerImage", answer.image);
+
+                                    cmd.ExecuteNonQuery();
+                                    idAnswers = cmd.LastInsertedId;
+                                }
+
+                                //Create question_answer
                                 query = "INSERT INTO `question_answer` (`idQuestion`, `idAnswer`, `correct`) " +
-                                        "VALUES (@idQuestion, @idAnswer, @Correct)";
+                                        "VALUES (@idQuestion, @idAnswer, @Correct);";
 
                                 using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
                                 {
@@ -314,43 +195,170 @@ namespace QuizTime.Views
                                     cmd.ExecuteNonQuery();
                                 }
                             }
-
-
-                            //if(idQuestion == 0)
-                            //{
-                            //    //Remove old question_answer
-                            //    query = "DELETE FROM `question_answer` WHERE `idQuestion` = @idQuestion AND `idAnswer` = @idAnswer";
-                            //    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                            //    {
-                            //        cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
-                            //        cmd.Parameters.AddWithValue("@idAnswer", answer.idAnswer);
-
-                            //        cmd.ExecuteNonQuery();
-                            //    }
-
-                            //    //Create question_answer
-                            //    query = "INSERT INTO `question_answer` (`idQuestion`, `idAnswer`, `correct`) " +
-                            //            "VALUES (@idQuestion, @idAnswer, @Correct);";
-
-                            //    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
-                            //    {
-                            //        cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
-                            //        cmd.Parameters.AddWithValue("@idAnswer", idAnswers);
-                            //        cmd.Parameters.AddWithValue("@Correct", answer.correct);
-
-                            //        cmd.ExecuteNonQuery();
-                            //    }
-                            //}
-
                         }
 
+                        MessageBox.Show("Succesfully created Quiz!");
+                        MainWindow main = new MainWindow();
+                        quiz = null;
+                        this.Close();
+                        main.ShowDialog();
                     }
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
-                    this.Close();
-                }
-                
+                    else
+                    {
+                        SQL bla = new SQL();
 
+                        long idQuiz = quiz.idQuiz;
+                        long idQuestion = new long();
+                        long idAnswers = new long();
+
+                        // Update Quiz
+                        string query = "UPDATE `quiz` SET `Quizname` = @quizName, `Image` = @quizImage WHERE `idQuiz` = @idQuiz";
+                        using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                        {
+                            cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
+                            cmd.Parameters.AddWithValue("@quizName", txtboxQuizName.Text);
+                            if (QuizImage.Source != null)
+                            {
+                                cmd.Parameters.AddWithValue("@quizImage", QuizImage.Source.ToString());
+                            }
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@quizImage", null);
+                            }
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Empty related question's idQuiz
+                        query = "UPDATE question SET idQuiz = NULL WHERE idQuiz = @idQuiz";
+                        using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                        {
+                            cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        foreach (Question question in quiz.Questions)
+                        {
+                            idQuestion = question.idQuestion;
+
+                            //Update Question
+                            if (idQuestion == 0)
+                            {
+                                query = "INSERT INTO question (idQuestion, questionText, image, idQuiz, type) " +
+                                        "VALUES (NULL, @questionText, @questionImage, @idQuiz, @questionType)";
+                            }
+                            else
+                            {
+                                query = "UPDATE question SET questionText = @questionText, image = @questionImage, idQuiz = @idQuiz, type = @questionType WHERE idQuestion = @idQuestion";
+                            }
+
+                            using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                            {
+                                cmd.Parameters.AddWithValue("@questionText", question.questionText);
+                                cmd.Parameters.AddWithValue("@questionImage", question.image);
+                                cmd.Parameters.AddWithValue("@idQuiz", idQuiz);
+                                cmd.Parameters.AddWithValue("@questionType", question.QuestionType);
+                                if (idQuestion != 0)
+                                {
+                                    cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
+                                }
+
+                                cmd.ExecuteNonQuery();
+                                if (idQuestion == 0)
+                                {
+                                    idQuestion = cmd.LastInsertedId;
+                                }
+                            }
+
+
+                            foreach (Answer answer in question.answerList)
+                            {
+                                bool update;
+                                string checkQuery = "SELECT idAnswer FROM answer WHERE idAnswer = @answerid";
+                                using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, bla.Connection))
+                                {
+                                    checkCmd.Parameters.AddWithValue("@answerid", answer.idAnswer);
+                                    object existingAnswerId = checkCmd.ExecuteScalar();
+
+                                    if (existingAnswerId != null)
+                                    {
+                                        // Answer exists, update it
+                                        query = "UPDATE answer SET answerText = @answerText, image = @answerImage WHERE idAnswer = @answerid";
+                                        update = true;
+                                    }
+                                    else
+                                    {
+                                        // Answer doesn't exist, insert it
+                                        query = "INSERT INTO answer (idAnswer, answerText, image) VALUES (NULL, @answerText, @answerImage)";
+                                        update = false;
+                                    }
+                                }
+
+                                using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                                {
+                                    cmd.Parameters.AddWithValue("@answerid", answer.idAnswer);
+                                    cmd.Parameters.AddWithValue("@answerText", answer.answerText);
+                                    cmd.Parameters.AddWithValue("@answerImage", answer.image);
+
+                                    cmd.ExecuteNonQuery();
+                                    idAnswers = cmd.LastInsertedId;
+
+                                }
+
+                                if (update == false)
+                                {
+                                    query = "INSERT INTO `question_answer` (`idQuestion`, `idAnswer`, `correct`) " +
+                                            "VALUES (@idQuestion, @idAnswer, @Correct)";
+
+                                    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                                    {
+                                        cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
+                                        cmd.Parameters.AddWithValue("@idAnswer", idAnswers);
+                                        cmd.Parameters.AddWithValue("@Correct", answer.correct);
+
+                                        cmd.ExecuteNonQuery();
+                                    }
+                                }
+
+
+                                //if(idQuestion == 0)
+                                //{
+                                //    //Remove old question_answer
+                                //    query = "DELETE FROM `question_answer` WHERE `idQuestion` = @idQuestion AND `idAnswer` = @idAnswer";
+                                //    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                                //    {
+                                //        cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
+                                //        cmd.Parameters.AddWithValue("@idAnswer", answer.idAnswer);
+
+                                //        cmd.ExecuteNonQuery();
+                                //    }
+
+                                //    //Create question_answer
+                                //    query = "INSERT INTO `question_answer` (`idQuestion`, `idAnswer`, `correct`) " +
+                                //            "VALUES (@idQuestion, @idAnswer, @Correct);";
+
+                                //    using (MySqlCommand cmd = new MySqlCommand(query, bla.Connection))
+                                //    {
+                                //        cmd.Parameters.AddWithValue("@idQuestion", idQuestion);
+                                //        cmd.Parameters.AddWithValue("@idAnswer", idAnswers);
+                                //        cmd.Parameters.AddWithValue("@Correct", answer.correct);
+
+                                //        cmd.ExecuteNonQuery();
+                                //    }
+                                //}
+
+                            }
+
+                        }
+                        MainWindow mainWindow = new MainWindow();
+                        mainWindow.ShowDialog();
+                        this.Close();
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("A Quiz should have minimal 10 questions.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -367,7 +375,7 @@ namespace QuizTime.Views
         {
             if (listview_Questions.SelectedItems.Count > 0)
             {
-                CreateQuestion createQuestion = new CreateQuestion();
+                CreateQuestion createQuestion = new CreateQuestion(quiz, quiz.Questions[listview_Questions.SelectedIndex], listview_Questions.SelectedIndex);
                 createQuestion.quiz = quiz;
                 createQuestion._newquestion = quiz.Questions[listview_Questions.SelectedIndex];
                 createQuestion.questionIndex = listview_Questions.SelectedIndex;
@@ -380,5 +388,6 @@ namespace QuizTime.Views
             }
 
         }
+
     }
 }

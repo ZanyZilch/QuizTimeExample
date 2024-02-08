@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using QuizTime.Controllers;
+using System.Data.Common;
 
 
 namespace QuizTime.Views
@@ -36,6 +37,49 @@ namespace QuizTime.Views
             InitializeComponent();
         }
 
+        public CreateQuestion(Quiz editquestion, Question question ,int questionindex)
+        {
+            InitializeComponent();
+            quiz = editquestion;
+            _newquestion = question;
+            questionIndex = questionindex;
+
+            IsEdit = true;
+            lblQuestionName.Text = _newquestion.questionText;
+            lblQuestionImage.Content = _newquestion.image;
+            
+            PopulateAnswers();
+        }
+
+        /// <summary>
+        /// Populates the grid with answers from a question.
+        /// </summary>
+        private void PopulateAnswers()
+        {
+            int row = 0;
+            int column = 0;
+
+            grdAnswers.Children.Clear();
+            foreach (Answer answer in _newquestion.answerList)
+            {
+                NewAnswer newAnswer = new NewAnswer(answer.idAnswer, answer.answerText, answer.correct, answer.image);
+
+                Grid.SetRow(newAnswer, row);
+                Grid.SetColumn(newAnswer, column);
+
+                grdAnswers.Children.Add(newAnswer);
+
+                column++;
+                if (column == 2)
+                {
+                    column = 0;
+                    row++;
+                }
+            }
+        }
+
+
+
         private void btnQuestionImage_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog();
@@ -49,7 +93,70 @@ namespace QuizTime.Views
 
         private void btnAddAnswer_Click(object sender, RoutedEventArgs e)
         {
-            NewAnswer newAnswer = new NewAnswer();
+            if (grdAnswers.Children.Count <= 4)
+            {
+                // Create a new NewAnswer
+                NewAnswer newAnswer = new NewAnswer();
+
+                // Add the new NewAnswer to the grid
+                grdAnswers.Children.Add(newAnswer);
+
+                // Update the grid layout
+                UpdateGrid();
+            }
+        }
+
+        private void UpdateGrid()
+        {
+            int row = 0;
+            int column = 0;
+
+            foreach (var child in grdAnswers.Children)
+            {
+                if (child is NewAnswer newAnswer)
+                {
+                    Grid.SetRow(newAnswer, row);
+                    Grid.SetColumn(newAnswer, column);
+
+                    // Adjust layout positions
+                    column++;
+                    if (column == 2)
+                    {
+                        column = 0;
+                        row++;
+                    }
+                }
+            }
+        }
+
+        private void btnRemoveAnswer_Click(object sender, RoutedEventArgs e)
+        {
+            NewAnswer selectedAnswer = null;
+            foreach (var child in grdAnswers.Children)
+            {
+                if (child is NewAnswer newAnswer && newAnswer.IsSelected)
+                {
+                    selectedAnswer = newAnswer;
+                    break;
+                }
+            }
+
+            if (selectedAnswer != null)
+            {
+                grdAnswers.Children.Remove(selectedAnswer);
+                UpdateGrid();
+            }
+        }
+
+        private void NewAnswer_Selected(object sender, EventArgs e)
+        {
+            foreach (var child in grdAnswers.Children)
+            {
+                if (child is NewAnswer newAnswer && newAnswer != sender)
+                {
+                    newAnswer.IsSelected = false;
+                }
+            }
         }
 
         private void btnFinalize_Click(object sender, RoutedEventArgs e)
@@ -64,6 +171,7 @@ namespace QuizTime.Views
             foreach (NewAnswer newAnswer in grdAnswers.Children.OfType<NewAnswer>())
             {
                 Answer answer = new Answer();
+                answer.idAnswer = newAnswer.answerID;
                 answer.answerText = newAnswer.txtAnswer.Text;
                 answer.image = newAnswer.lblimageName.Content.ToString();
                 answer.correct = (bool)newAnswer.cbxCorrect.IsChecked;
@@ -137,5 +245,7 @@ namespace QuizTime.Views
             //}
             //this.Close();
         }
+
+
     }
 }

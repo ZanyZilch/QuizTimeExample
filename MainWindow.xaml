@@ -50,8 +50,8 @@
                 <Button Content="Edit Quiz" IsEnabled="False" x:Name="btnEditQuiz" Click="btnEditQuiz_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Center"
                     Height="30" Width="Auto" Margin="5" Grid.Row="4"/>
                 <!-- Fifth button -->
-                <Button Content="Button 5" HorizontalAlignment="Stretch" VerticalAlignment="Center"
-                    Height="30" Width="Auto" Margin="5" Grid.Row="5"/>
+                <Button Content="Delete Quiz" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                    Height="30" Width="Auto" Margin="5" Grid.Row="5" Click="btnDeleteQuiz_Click" Name="btnDeleteQuiz" IsEnabled="False"/>
             </Grid>
         </Border>
 

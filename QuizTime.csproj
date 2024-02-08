@@ -92,17 +92,23 @@
     <Compile Include="Pages\QuizQuestionPage.xaml.cs">
       <DependentUpon>QuizQuestionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ResultPage.xaml.cs">
-      <DependentUpon>ResultPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\CreateQuestion.xaml.cs">
       <DependentUpon>CreateQuestion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateQuiz.xaml.cs">
       <DependentUpon>CreateQuiz.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DeleteQuiz.xaml.cs">
+      <DependentUpon>DeleteQuiz.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditQuiz.xaml.cs">
       <DependentUpon>EditQuiz.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QuizController.xaml.cs">
+      <DependentUpon>QuizController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ResultScreen.xaml.cs">
+      <DependentUpon>ResultScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartQuiz.xaml.cs">
       <DependentUpon>StartQuiz.xaml</DependentUpon>
@@ -131,10 +137,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ResultPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\CreateQuestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,7 +145,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DeleteQuiz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EditQuiz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\QuizController.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ResultScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

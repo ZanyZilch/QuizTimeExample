@@ -23,18 +23,27 @@ namespace QuizTime.Pages
     public partial class QuizQuestionPage : Page
     {
         public Question currentQuestion;
+        private List<string> _userAnswers = new List<string>();
         public QuizQuestionPage(Question thisQuestion)
         {
             InitializeComponent();
             this.currentQuestion = thisQuestion;
             questionText.Text = currentQuestion.questionText;
+
+            if (!string.IsNullOrEmpty(thisQuestion.image) && !string.Equals(thisQuestion.image, "..."))
+            {
+                Uri imagePath = new Uri(thisQuestion.image);
+                BitmapImage bitmap = new BitmapImage(imagePath);
+                imgQuestion.Source = bitmap;
+            }
             PopulateAnswers();
         }
-
+   
         public void PopulateAnswers()
         {
             int row = 0;
             int column = 0;
+
 
             foreach (Answer answer in currentQuestion.answerList)
             {
@@ -51,6 +60,15 @@ namespace QuizTime.Pages
                     row++;
                 }
             }
+        }
+
+        public void SaveUserAnswer(Answer answer)
+        {
+            _userAnswers.Add(answer.answerText);
+        }
+        public List<string> GetUserAnswers()
+        {
+            return _userAnswers;
         }
     }
 }

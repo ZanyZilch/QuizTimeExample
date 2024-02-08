@@ -23,10 +23,12 @@
                     <widget:NewAnswer Grid.Row="0" Margin="0,0,0,77" Grid.RowSpan="2" Width="311"/>
                     <widget:NewAnswer Grid.Column="1" Margin="0,0,0,77" Grid.RowSpan="2" Width="311"/>
 
-                </Grid>
+            </Grid>
         </GroupBox>
         <Button Name="btnQuestionImage" Content="Upload Image" HorizontalAlignment="Left" Height="20" Margin="18,67,0,0" VerticalAlignment="Top" Width="91" Click="btnQuestionImage_Click"/>
         <Label Name="lblQuestionImage" Content="..." HorizontalAlignment="Left" Margin="115,64,0,0" VerticalAlignment="Top" Width="209" Height="23"/>
         <Button Name="btnFinalize" Content="Finalize" HorizontalAlignment="Left" Height="20" Margin="578,283,0,0" VerticalAlignment="Top" Width="68" Click="btnFinalize_Click"/>
+        <Button x:Name="btnAddAnswer" Content="Add Answer" HorizontalAlignment="Left" Height="20" Margin="398,283,0,0" VerticalAlignment="Top" Width="79" Click="btnAddAnswer_Click"/>
+        <Button x:Name="btnRemoveAnswer" Content="Remove Answer" HorizontalAlignment="Left" Height="20" Margin="482,283,0,0" VerticalAlignment="Top" Width="91" Click="btnRemoveAnswer_Click"/>
     </Grid>
 </Window>

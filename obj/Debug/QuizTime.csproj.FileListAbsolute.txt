@@ -51,5 +51,9 @@ C:\Users\Surface\source\repos\QuizTime\obj\Debug\Pages\QuizQuestionPage.g.cs
 C:\Users\Surface\source\repos\QuizTime\obj\Debug\Pages\QuizQuestionPage.baml
 C:\Users\Surface\source\repos\QuizTime\obj\Debug\Widgets\AnAnswer.g.cs
 C:\Users\Surface\source\repos\QuizTime\obj\Debug\Widgets\AnAnswer.baml
-C:\Users\Surface\source\repos\QuizTime\obj\Debug\Pages\ResultPage.g.cs
-C:\Users\Surface\source\repos\QuizTime\obj\Debug\Pages\ResultPage.baml
+C:\Users\Surface\source\repos\QuizTime\obj\Debug\Views\ResultScreen.g.cs
+C:\Users\Surface\source\repos\QuizTime\obj\Debug\Views\ResultScreen.baml
+C:\Users\Surface\source\repos\QuizTime\obj\Debug\Views\DeleteQuiz.g.cs
+C:\Users\Surface\source\repos\QuizTime\obj\Debug\Views\DeleteQuiz.baml
+C:\Users\Surface\source\repos\QuizTime\obj\Debug\Views\QuizController.g.cs
+C:\Users\Surface\source\repos\QuizTime\obj\Debug\Views\QuizController.baml

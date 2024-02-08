@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Surface\source\repos\QuizTime\obj\Debug\
+C:\Users\Surface\source\repos\l8-2-quiztime-ZanyZilch\obj\Debug\
 QuizTime
 none
 false
 DEBUG;TRACE
-C:\Users\Surface\source\repos\QuizTime\App.xaml
-9-690282829
+C:\Users\Surface\source\repos\l8-2-quiztime-ZanyZilch\App.xaml
+111953429549
 
-182065821396
-27249252906
-MainWindow.xaml;Pages\QuizQuestionPage.xaml;Pages\ResultPage.xaml;Views\CreateQuestion.xaml;Views\CreateQuiz.xaml;Views\EditQuiz.xaml;Views\StartQuiz.xaml;Widgets\AnAnswer.xaml;Widgets\NewAnswer.xaml;
+21-419916712
+27-1091300034
+MainWindow.xaml;Pages\QuizQuestionPage.xaml;Views\CreateQuestion.xaml;Views\CreateQuiz.xaml;Views\DeleteQuiz.xaml;Views\EditQuiz.xaml;Views\QuizController.xaml;Views\ResultScreen.xaml;Views\StartQuiz.xaml;Widgets\AnAnswer.xaml;Widgets\NewAnswer.xaml;
 
-False
+True
 

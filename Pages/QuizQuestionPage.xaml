@@ -12,9 +12,14 @@
     <Grid Background="White">
         <Label HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" Height="185" Width="688" FontWeight="Bold" FontSize="28" HorizontalContentAlignment="Center">
             <AccessText x:Name="questionText" TextWrapping="Wrap" Text="[QuestionText]" FontSize="28"/>
+            
         </Label>
+        <Image Name="imgQuestion" Source="{Binding ImageSource}" Margin="300,73,300,204"/>
 
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0" Name="AnswerGrid" Height="188" Width="780">
+        <Grid HorizontalAlignment="Stretch" Margin="0,252,0,0" Name="AnswerGrid" Height="188" Width="780" AllowDrop="True" SnapsToDevicePixels="True">
+            <Grid.Effect>
+                <DropShadowEffect/>
+            </Grid.Effect>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

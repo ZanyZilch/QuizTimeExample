@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuizTime.Views"
         mc:Ignorable="d"
-        Title="StartQuiz" Height="450" Width="800">
+        Title="StartQuiz" Height="600" Width="800">
     <Grid>
-        <Label Content="Question 1 out of 10" Name="questionAmount" HorizontalAlignment="Right" Margin="0,11,25,0" VerticalAlignment="Top" Height="26" Width="119"/>
-        <Label Content="[Quizname]" HorizontalContentAlignment="Left" x:Name="questionText" HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" Height="26" Width="184" FontWeight="Bold"/>
-        <Frame x:Name="pageFrame" NavigationUIVisibility="Hidden" Margin="10,42,10,10"/>
-        <Image Name="imgQuiz" HorizontalAlignment="Left" Height="40" Margin="104,6,0,0" VerticalAlignment="Top" Width="48"/>
-
-        <Button Content="Previous" Click="Previous_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20" />
-        <Button Content="Next" Click="Next_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" />
-        <Label Name="lblTimer" Content="[Timer]" HorizontalAlignment="Left" Height="31" Margin="539,11,0,0" VerticalAlignment="Top" Width="70"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="28*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Question 1 out of 10" Name="questionAmount" HorizontalAlignment="Left" Margin="656,0,0,0" VerticalAlignment="Center" Height="26" Width="119"/>
+        <Label Grid.Row="0" Content="[Quizname]" HorizontalContentAlignment="Left" x:Name="questionText" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Height="26" Width="184" FontWeight="Bold"/>
+        <Frame Grid.Row="1" x:Name="pageFrame" NavigationUIVisibility="Hidden" Margin="10,30,10,12"/>
+        <Image Grid.Row="0" Name="imgQuiz" HorizontalAlignment="Left" Height="40" Margin="170,0,0,0" VerticalAlignment="Center" Width="48"/>
+        <Label Grid.Row="0" Name="lblTimer" Content="[Timer]" HorizontalAlignment="Center" Height="31" VerticalAlignment="Center" Width="70"/>
     </Grid>
 </Window>
